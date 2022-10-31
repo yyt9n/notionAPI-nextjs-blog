@@ -69,7 +69,7 @@ export default function Home({ posts }) {
                 <h3 className={styles.postTitle}>
                   <Link href={`/${post.id}`}>
                     <a>
-                      <Text text={post.properties.Name.title} />
+                      {/* <Text text={post.properties.Name.title} /> */}
                     </a>
                   </Link>
                 </h3>
@@ -87,5 +87,14 @@ export default function Home({ posts }) {
   );
 }
 
-//SSGを追加
+//ISRを追加
+export const getStaticProps = async () => {
+  const database = await getDatabase(databaseId);
+  return {
+    props: {
+      posts: database,
+    },
+    revalidate: 1,
+  };
+};
 
